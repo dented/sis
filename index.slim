@@ -1,0 +1,905 @@
+doctype html
+html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#"
+  head
+    meta name="keywords" content="Impact, Startups, Entrepreneurs, Hong Kong, Fintech, Healthech, IoT, Robotics, Accelerators, Coworking Spaces, Conference, scale, growth, corporate innovation, marketplace, business, investors" /
+    meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" /
+    title
+      = content_for?(:title) ? yield(:title) : I18n.t('views.site.title')
+    meta name="description" content="#{truncate('Startup Impact Summit is one of the core events of StartmeupHK Festival 2019 taking place on 25th January, 2019. Startup Impact Summit is focused on impact, created by regional and international Startups, driven by successful cases of co-innovation projects between startups and corporates while leveraging the strength of connecting the ecosystems.', length: 155) }"
+    meta name="author" content="WHub"
+    meta property="fb:admins" content="647956299" /
+    meta property="og:image" content="#{content_for?(:og_image) ? yield(:og_image) : I18n.t('views.site.og_image')}" /
+    meta property="og:image:type" content="#{content_for?(:og_image_type) ? yield(:og_image_type) : I18n.t('views.site.og_image_type')}" /
+    meta property="og:title" content="#{content_for?(:og_title) ? yield(:og_title) : I18n.t('views.site.og_title')}" /
+    meta property="og:type" content="website" /
+    meta property="og:url" content="#{request.url}"
+    meta property="og:description" content="#{content_for?(:og_description) ? yield(:og_description) : I18n.t('views.site.og_description')}" /
+    meta property="og:site_name" content="#startupPassion. #{I18n.t('views.startups.total')} Startups. Discover, Join,." /
+    meta name="twitter:card" content="summary" /
+    meta name="twitter:site" content="@whub_io" /
+    meta name="twitter:creator" content="@whub_io" /
+    meta name="twitter:title" content="#{ I18n.t('views.site.twitter_title') }" /
+    meta name="twitter:description" content="#{I18n.t('views.site.twitter_description')}" /
+    meta name="twitter:image" content="#{I18n.t('views.site.twitter_image')}" /
+    meta name="twitter:url" content="#{request.url}" /
+    = csrf_meta_tags
+    link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700" rel="stylesheet"
+    link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous"
+    link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" /
+    meta http-equiv="cache-control" content="max-age=0" /
+    meta http-equiv="cache-control" content="no-cache" /
+    meta http-equiv="expires" content="0" /
+    meta http-equiv="pragma" content="no-cache" /
+
+    link rel="apple-touch-icon" sizes="57x57" href="https://whub.io/assets/startup-summit/apple-icon-57x57.png" /
+    link rel="apple-touch-icon" sizes="60x60" href="https://whub.io/assets/startup-summit/apple-icon-60x60.png" /
+    link rel="apple-touch-icon" sizes="72x72" href="https://whub.io/assets/startup-summit/apple-icon-72x72.png" /
+    link rel="apple-touch-icon" sizes="76x76" href="https://whub.io/assets/startup-summit/apple-icon-76x76.png" /
+    link rel="apple-touch-icon" sizes="114x114" href="https://whub.io/assets/startup-summit/apple-icon-114x114.png" /
+    link rel="apple-touch-icon" sizes="120x120" href="https://whub.io/assets/startup-summit/apple-icon-120x120.png" /
+    link rel="apple-touch-icon" sizes="144x144" href="https://whub.io/assets/startup-summit/apple-icon-144x144.png" /
+    link rel="apple-touch-icon" sizes="152x152" href="https://whub.io/assets/startup-summit/apple-icon-152x152.png" /
+    link rel="apple-touch-icon" sizes="180x180" href="https://whub.io/assets/startup-summit/apple-icon-180x180.png" /
+    link rel="icon" type="image/png" sizes="192x192"  href="https://whub.io/assets/startup-summit/android-icon-192x192.png" /
+    link rel="icon" type="image/png" sizes="32x32" href="https://whub.io/assets/startup-summit/favicon-32x32.png" /
+    link rel="icon" type="image/png" sizes="96x96" href="https://whub.io/assets/startup-summit/favicon-96x96.png" /
+    link rel="icon" type="image/png" sizes="16x16" href="https://whub.io/assets/startup-summit/favicon-16x16.png" /
+    link rel="manifest" href="https://whub.io/assets/startup-summit/manifest.json" /
+    meta name="msapplication-TileColor" content="#fff" /
+    meta name="msapplication-TileImage" content="https://whub.io/assets/startup-summit/ms-icon-144x144.png" /
+    meta name="theme-color" content="#fff" /
+
+    scss:
+      body {
+        font-family: 'Roboto', sans-serif;
+      }
+      .main-background {
+        background-image: url('https://whub-assets.s3.amazonaws.com/uploads/03d/c17/138/728/b9d/113/6de/da2/be4/449/large_d82e002afffe6e8a4dd58c51897ca3ff.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        -webkit-background-size: cover;
+        background-position: center center;
+        height: 100vh;
+        .mask {
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      .site-navbar {
+        transition: all .3s;
+        padding: 0;
+        .navbar-nav {
+          li {
+            min-width: 120px;
+            a {
+              color: #fff;
+            }
+          }
+        }
+        a {
+          color: #188bef;
+          font-weight: bold;
+          padding: 25px 0;
+        }
+        .active, .active a, li a.current:hover, li a:hover {
+          color: darken(#fff, 10%);
+          background: 0 0;
+        }
+        .navbar-toggle .icon-bar {
+          background: #fff;
+        }
+        .navbar-toggle {
+          border: 1px solid #fff;
+          border-radius: 0;
+        }
+        .navbar-toggler-icon i {
+          font-size: 1.5rem;
+          font-weight: 100;
+          padding-top: 1px;
+        }
+        .navbar-toggler {
+          color: #fff;
+          padding: .25rem .5rem;
+        }
+        .navbar-collapse {
+          .nav-item {
+            text-align: center;
+          }
+        }
+
+        &.sticky {
+          background-color: rgba(24,139,239,0.5);
+          .navbar-nav {
+            background-color: inherit;
+            a {
+              color: #fff;
+              &:hover {
+                color: darken(#fff, 10%);
+              }
+            }
+          }
+          z-index: 100000;
+          // padding: 12px 0;
+          box-shadow: 0 0 15px rgba(0,0,0,.1);
+        }
+      }
+
+      .bg-dark {
+        &.extra-dark {
+          background-color: #000 !important;
+        }
+      }
+      #map {
+        iframe {
+          border: none;
+          position: relative;
+          margin-bottom: -2px;
+        }
+        .map-overlay{
+          transition: all 0.6s ease;
+          background-color: black;
+          opacity: 0;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          width:100%;
+          color: white;
+          display:flex;
+          align-items: center;
+          justify-content: center;
+          &:hover{
+            opacity: 0.5;
+            cursor: pointer;
+          }
+        }
+      }
+      .bg-blue {
+        background-color: #33447a;
+        &.extra-blue {
+          background-color: #33c5f3;
+        }
+      }
+      .supporting-cards {
+        .card {
+          // min-height: 135px;
+          border: none;
+          img {
+            border: none;
+          }
+        }
+      }
+      .btn-white {
+        background-color: #fff;
+        color: #188bef;
+        border-color: #fff;
+        &:hover {
+          background-color: #188bef;
+          color: #fff;
+          border-color: #188bef;
+        }
+      }
+      .text-blue {
+        color: #188bef;
+      }
+      .text-underline {
+        border-bottom: 1px solid #188bef;
+      }
+      .text-bold {
+        font-weight: 700;
+      }
+      .w-break {
+        word-wrap: break-word;
+      }
+      .nav-metrics {
+        li {
+          padding: 0 20px;
+          strong {
+            font-size: 2.2em;
+            text-align: center;
+          }
+          span {
+            font-size: 0.8em;
+            word-wrap: break-word;
+            color: #fff;
+            text-align: center;
+          }
+        }
+      }
+      .text-red {
+        color: firebrick;
+      }
+      .w-150 {
+        width: 150px;
+      }
+      .w-250 {
+        width: 250px;
+      }
+
+      @media only screen and (max-width: 768px) {
+        .site-navbar {
+          margin-bottom: 0;
+          padding: 0;
+          a.navbar-brand {
+            font-size: 2.3em;
+            img {
+              padding: 5px;
+              width: 80px;
+              height: 45px;
+            }
+          }
+          .container {
+            padding-right: 15px;
+            padding-left: 15px;
+            border-radius: 0;
+          }
+          .navbar-toggle .icon-bar {
+            background: #000;
+          }
+        }
+        .main-background {
+          text-align: center;
+        }
+        .nav-metrics {
+          li {
+            padding: 0 10px;
+          }
+        }
+        .sis-about {
+          text-align: center;
+          img {
+            margin-bottom: 10px;
+          }
+        }
+        .mt-xs-3 {
+          margin-top: (1em * 0.75);
+          margin-left: 0 !important;
+        }
+        .d-xs-block, .d-sm-block {
+          display: block;
+        }
+      }
+
+      @media only screen and (max-width: 480px) {
+        .site-navbar {
+          margin-bottom: 0;
+          padding: 0;
+          a.navbar-brand {
+            font-size: 1.8rem;
+            img {
+              width: 80px;
+              height: 45px;
+            }
+          }
+          .container {
+            padding-right: 15px;
+            padding-left: 15px;
+            border-radius: 0;
+          }
+          .navbar-toggle .icon-bar {
+            background: #000;
+          }
+        }
+        .nav-metrics {
+          li {
+            padding: 0 10px;
+          }
+        }
+        .main-background {
+          text-align: center;
+        }
+        .sis-about {
+          text-align: center;
+          img {
+            margin-bottom: 10px;
+          }
+        }
+        .mt-xs-3 {
+          margin-top: (3em * 0.75);
+          margin-left: 0 !important;
+        }
+        .d-xs-block, .d-sm-block {
+          display: block;
+        }
+        .tab-pane {
+          display: block !important;
+          padding: 10px 0;
+          border-bottom: 1px solid #ccc;
+        }
+      }
+
+      /* PILLARS */
+      .pillars {
+        width: 100%;
+        overflow: hidden;
+        color: white;
+        position: relative
+      }
+
+      .pillars .pillars-list li {
+        list-style: none;
+      }
+      .pillars .pillar-content {
+        color: #000;
+      }
+
+      @media (min-width:992px) {
+        .pillars ul {
+          width: 110%
+        }
+      }
+
+      .pillars ul li .pillars-nav {
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+        background-color: rgba(0,0,0,0.6);
+      }
+      .pillars ul li .pillars-nav.active {
+        background-color: rgba(0,0,0,0.9);
+      }
+
+      .pillars ul li .pillars-nav:hover {
+        -o-transition: all 250ms ease-in-out;
+        -webkit-transition: all 250ms ease-in-out;
+        transition: all 250ms ease-in-out;
+        cursor: pointer;
+      }
+
+      @media (min-width:992px) {
+        .pillars ul li .pillars-nav {
+          float: left;
+          width: 16.6%;
+          height: 350px;
+          margin: 0 .5%;
+          -webkit-transform-style: preserve-3d;
+          -moz-transform-style: preserve-3d;
+          -ms-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+          -webkit-transform: skew(-20deg);
+          -moz-transform: skew(-20deg);
+          -o-transform: skew(-20deg);
+          -ms-transform: skew(-20deg);
+          transform: skew(-20deg);
+        }
+      }
+
+      @media (min-width:992px) {
+        .pillars ul li .pillars-nav > * {
+          -webkit-transform-style: preserve-3d;
+          -moz-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+          -webkit-transform: skew(20deg);
+          -moz-transform: skew(20deg);
+          -o-transform: skew(20deg);
+          -ms-transform: skew(20deg);
+          transform: skew(20deg);
+        }
+      }
+      @media (max-width:992px){
+        .image{
+          width:100vw;
+          height:230px;
+
+        }
+      }
+      @media (min-width:992px) {
+        .pillars ul li .pillars-nav div.image {
+          width: 170%;
+          height: 170%;
+          margin: 0 0 0 -35%;
+        }
+      }
+
+      .pillars ul li .pillars-nav div.image {
+        background-position: center center;
+        background-size: cover;
+        position: absolute;
+        opacity: 1;
+      }
+
+      .pillars ul li .pillars-nav .title {
+        display: block;
+        background-color: rgba(0,0,0,0.2);
+        padding: 10px 0;
+        margin: 0 auto;
+        text-align: center;
+        text-transform: uppercase;
+        color: #fff;
+        position: absolute;
+        top: 45%;
+        left: -5%;
+        width: 110%;
+        font-weight: 100;
+      }
+
+      .pillars ul li .pillars-nav .title .text-white {
+        font-weight: 600;
+        display: inline;
+      }
+
+      @media (min-width:992px) {
+
+        .pillars ul li .pillars-nav {
+          &:hover {
+            //opacity: .9;
+            background-color: rgba(0,0,0,1);
+          }
+          div.image {
+            opacity: .5;
+            top: -25%;
+            position: relative;
+          }
+        }
+
+        .pillars ul li:first-child .pillars-nav,
+        .pillars ul li:last-child .pillars-nav {
+          width: 18.5%;
+        }
+
+        .pillars ul li:first-child .pillars-nav {
+          margin-left: -10%;
+
+          div.image {
+            margin: 0;
+          }
+
+          .title {
+            left: 10%;
+          }
+        }
+        .pillars ul li:last-child .pillars-nav {
+          .title {
+            left: -25%;
+          }
+        }
+      }
+
+      @media (max-width:992px) {
+        .pillars {
+          display: none;
+        }
+      }
+
+      /* END PILLARS */
+      .fs-180 {
+        font-size: 1.8em;
+      }
+      .card-img-top {
+        max-width: 125px;
+      }
+      .get-it-now {
+        width: 336px;
+        height: 78px;
+        font-family: TheHistoriaDemo;
+        font-size: 73px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.1;
+        letter-spacing: -1.9px;
+        text-align: left;
+        color: var(--bright-light-blue);
+      }
+
+  body
+    #fb-root
+    header.main-image
+
+      nav.site-navbar.navbar.navbar-expand-lg.bg-dark.fixed-top
+        .container
+          a.navbar-brand.py-0 href="/startup-impact-summit" alt="Startup Impact Summit"
+            img.d-none.d-sm-block src="https://whub.io/assets/startup-summit/logos/sis-white.png" width="100px"
+            span.d-xs
+          button.navbar-toggler[type="button" data-toggle="collapse" data-target="#navbar"]
+            i.fas.fa-bars[aria-hidden="true"]
+          #navbar.collapse.navbar-collapse
+            ul.navbar-nav
+              li.nav-item
+                a.nav-link.text-uppercase.text-blue(href='#tracks')
+                  | Tracks
+              li.nav-item
+                a.nav-link.text-uppercase.text-blue(href='https://www.accupass.com/go/sis_2019')
+                  | Tickets
+              li.nav-item
+                a.nav-link.text-uppercase.text-blue(href='#partners')
+                  | partners
+              li(class="nav-item")
+                a.nav-link.text-uppercase.text-blue(href='#contact')
+                  | Contact
+            ul.navbar-nav.ml-auto
+              li(class="nav-item")
+                span.text-white Made with&nbsp;
+                span.text-red
+                  i.fa.fa-heart.fa-fw
+                span.text-white &nbsp; by
+                a.nav-brand(href='/')
+                  = image_tag("logo/WHub Logo_colour.png", class: "v-middle", width: '100px')
+
+    #main
+      .main-background
+        .mask.d-flex.justify-content-center.align-items-center
+          .container-fluid
+            .row.px-lg-5
+              .col-xs-12.col-md-4.px-lg-5
+                img.img-responsive.w-75 src="https://whub-assets.s3.amazonaws.com/uploads/560/b37/9eb/357/f4c/841/499/35d/71d/adb/025eb1766416aeb441a7ba676ea9767d.png" alt="Logo"
+            .row.px-lg-5
+              .col-xs-12.col-md-4.px-lg-5
+                h5.mt-4.text-white
+                  | Hong Kong Convention
+                  br
+                  | and Exhibition Centre
+                h4.d-block.text-white.text-bold 25.01.2019
+
+            .row.px-lg-5.mt-5
+              .col-xs-12.col-md-4.px-lg-5
+                a.btn.btn-primary.btn-white.text-bold.text-uppercase.py-1.w-250 href="https://www.accupass.com/go/sis_2019" target="_blank" GET TICKETS
+                br
+                a.mt-1.btn.btn-primary.btn-white.text-bold.text-uppercase.py-1.w-250 href="https://docs.google.com/forms/d/e/1FAIpQLSft6F-D51PLfg5Li6dRE7RpvJfkecXJd5Zh-ubGnp8cXGXivg/viewform" target="_blank" EXHIBIT
+                br
+                a.mt-1.btn.btn-primary.btn-white.text-bold.text-uppercase.py-1.w-250 href="mailto:diane@whub.io?subject=Sponsor Startup Impact Summit" target="_blank" SPONSOR
+
+      .container.sis-about
+        .row.py-5.align-items-center
+          .col-md-3.offset-md-2
+            img.img-fluid src="https://whub.io/assets/startup-summit/logos/sis-colour.png" width="275px"
+          .col-md-6
+            p
+              strong Startup Impact Summit
+              | &nbsp;is one of the core events of StartmeupHK Festival 2019 taking place on 25th January, 2019.
+            p
+              | Startup Impact Summit is focused on&nbsp;
+              strong impact
+              | , created by regional and international Startups, driven by successful cases of co-innovation projects between startups and corporates while leveraging the strength of connecting the ecosystems.
+
+      .container-fluid
+        .row.py-3.align-items-center.bg-blue.extra-blue
+          .col
+            ul.nav.nav-metrics.justify-content-center.py-3.fs-180
+              li.nav-item.text-uppercase
+                strong.d-block.text-white 2000+
+                span.d-block attendees
+              li.nav-item.text-uppercase
+                strong.d-block.text-white 100
+                span.d-block startups
+              li.nav-item.text-uppercase
+                strong.d-block.text-white 30
+                span.d-block speakers
+              li.nav-item.text-uppercase
+                strong.d-block.text-white 20
+                span.d-block countries
+              li.nav-item.text-uppercase
+                strong.d-block.text-white 25
+                span.d-block partners
+
+      .container-fluid
+        a name="tracks"
+        .row
+          .col-md-6.offset-md-3.py-3
+            .h1.text-uppercase.text-center.text-bold Summit Tracks
+            p.text-center Choose from the wide range of tracks from Startup Showcase to Innovation Challenge to Keynote Sessions designed to give you a wholesome experience of Hong Kong's Startup Ecosystem.
+        .row
+          .pillars
+            ul.pillars-list.d-none.d-md-block
+              li
+                a.pillars-nav.active href="#" data-toggle="custom-tabs" data-target="#job-fair"
+                  .image style="background-image: url(https://whub-assets.s3.amazonaws.com/uploads/149/d94/5d8/151/f6d/5d3/d7f/37e/a36/743/small_23551cdffe3a12cf78da50ebb2d03161.jpg);"
+                  .title
+                    | Job
+                    .text-white Fair
+              li
+                a.pillars-nav href="#" data-toggle="custom-tabs" data-target="#startup-village"
+                  .image style="background-image: url(https://whub-assets.s3.amazonaws.com/uploads/178/a40/be5/304/3c4/c91/21c/87c/f5b/3e0/small_2d238b29978636739909f0e9eee5ba2b.jpg);"
+                  .title
+                    | Startup
+                    .text-white Village
+              li
+                a.pillars-nav href="#" data-toggle="custom-tabs" data-target="#marketplace"
+                  .image style="background-image: url(https://whub-assets.s3.amazonaws.com/uploads/b09/eba/86c/deb/4f9/5be/425/352/591/957/small_28b32c0dead143e8cb444e292b8c5ebf.jpg)"
+                  .title
+                    | Services
+                    .text-white Marketplace
+              li
+                a.pillars-nav href="#" data-toggle="custom-tabs" data-target="#speakers"
+                  .image style="background-image: url(https://whub-assets.s3.amazonaws.com/uploads/461/657/136/3a9/df0/456/866/7f3/90b/457/small_cd085e915bfc69d21866eb4fe95bc6cb.jpg);"
+                  .title
+                    | Mainstage
+                    .text-white Speakers
+              li
+                a.pillars-nav href="#" data-toggle="custom-tabs" data-target="#workshops"
+                  .image style="background-image: url(https://whub-assets.s3.amazonaws.com/uploads/bb1/ad3/236/895/df7/667/e5b/589/119/c4e/small_04c03ba44f1afcc2addd1d8eae5833d8.jpg);"
+                  .title
+                    | Startup
+                    .text-white Workshops
+              li
+                a.pillars-nav href="#" data-toggle="custom-tabs" data-target="#open-innovation"
+                  .image style="background-image: url(https://whub-assets.s3.amazonaws.com/uploads/198/e68/ff9/520/8e4/40b/02b/9be/fb5/a8d/small_53e315d400fd71cb36c379ccacc6f727.jpg);"
+                  .title
+                    | Open
+                    .text-white Innovation
+            .clearfix
+            .container.tab-content.pillar-content.mt-3.pb-3
+              #job-fair.tab-pane.show.active
+                .h3 Job Fair
+
+                p Assemble your Team.
+
+                p WHub’s many Job Fairs have matched startups with their dream candidates to unleash their #StartupPassion on the world.
+                ul
+                  li Meet the undergraduates, graduate students and seasoned professionals with big ideas
+                  li Give your best pitch as our jobseekers are passionate and eager to disrupt in the startup space
+              #startup-village.tab-pane
+                .h3 Startup Village with Country Pavilions
+
+                p Touch innovation.
+                p Innovative startups will be flying in from all over the world to showcase their products and services at the Startup Village.
+                ul
+                  li Connect with international entrepreneurs from different industries
+                  li Learn about the latest leading technologies from various ecosystems
+              #marketplace.tab-pane
+                .h3 Startup Services Marketplace
+                p Get HK Ready.
+                p This marketplace gathers services that will push your startup’s potential from 7 verticals, including Legal, Growth Hacking, Tax and Accounting, Gamification and more.
+                ul
+                  li Uncover the tools and services you’ve never known existed to fast track your business
+                  li Showcase your solutions! If you want to exhibit your service, click here to find out more
+              #workshops.tab-pane
+                .h3 Workshops for Startups
+                p Get your game on.
+                p Dive deep into practical workshops that will help you get your game plan in place and nail your fundraising pitch.
+                ul
+                  li Discover Tips & Hacks from founders, legal experts and investors
+                  li Perfect your deck and your pitch, and streamline your legal and tax processes
+              #open-innovation.tab-pane
+                .h3 Open Innovation Challenge
+                p Build Solutions.
+                p Gathering corporates, entrepreneurs and other leaders in the startup ecosystem, the Open Innovation Challenge matches key players in ecosystem to create masterpiece solutions.
+                ul
+                  li Gain competitive advantage in shortening time-to-market and product life cycles thought technologies
+                  li Boost experience-sharing between all key stakeholders
+              #speakers.tab-pane
+                .h3 Main Stage
+                p Meet the champions.
+                p The Main Stage will feature on-going panels and keynotes by the brilliant minds of over 30 world class speakers.
+                ul
+                  li Get inspiration from renowned leaders, key influencers and community builders
+                  li Find out insider information on trending topics, hacks into breaking into HK & GBA, and how to amplify your startup-corporate collaboration
+
+      .container-fluid.bg-dark.extra-dark.text-center.text-white
+        .row-.no-gutters
+        .row.no-gutters
+          .col-12.text-center.pt-4.pb-2
+            img.img-fluid src="https://whub-assets.s3.amazonaws.com/uploads/d48/35e/070/ccf/c21/997/68f/5dc/ec7/326/e991a46009fe5d480ee2321356c2578e.png" alt="Passionately Hosted By"
+        .row.no-gutters.align-items-center.pb-4
+          .col-md-4.offset-md-1
+            img.img-fluid src="https://whub.io/assets/startup-summit/logos/whub-white.png" alt="WHub" width="450px"
+          .col-md-5.offset-md-1
+            p.text-left WHub.io, Hong Kong’s biggest startup community & power connector, is the platform showcasing startups to accelerate their business through meaningful connections.
+            p.text-left WHub starts with Why and helps startups unleash their full potential by showcasing their mission & value, team in addition to their products and services.
+
+      .row.no-gutters.text-center
+        .col-12.py-4
+          a name="partners"
+          .h1.text-bold Partners
+          p.text-center
+            | The event would not have been possible without the support of these partners.
+            br
+            | Interested in being a sponsor?&nbsp;
+            a.text-bold.rounded-0 href="mailto:diane@whub.io?subject=[SIS] Sponsorship" target="_blank" Email us
+          hr[style="width:80%"]
+      .row.no-gutters.text-center
+        .col-xs-12.col-md-4
+          .h3 Key Partner
+          .col-12.supporting-cards.mt-4
+            .card-group.align-items-center
+              .card
+                a href="https://invest-hk.com" target="_blank"
+                  img.img-fluid src="https://whub.io/assets/startup-summit/logos/zegal.png" alt="Zegal" width="130px"
+        .col-xs-12.col-md-4
+          .h3 Festival Organisers
+          .col-12.supporting-cards.mt-2
+            .card-group.align-items-center
+              .card
+                a href="https://invest-hk.com" target="_blank"
+                  img.img-fluid src="https://whub.io/assets/startup-summit/logos/invest-hk.png" alt="Invest HK" width="200px"
+              .card
+                a href="https://invest-hk.com" target="_blank"
+                  img.img-fluid src="https://whub-assets.s3.amazonaws.com/uploads/ac5/b7a/f4b/515/198/db5/43c/1b4/a42/8f2/small_fa9f883cc69c8ec1eecf0dce700047d0.png" alt="Startupmeup HK" width="200px"
+        .col-xs-12.col-md-4
+          .h3 Official Carrier
+          .col-12.supporting-cards.mt-5
+            .card-group.align-items-center
+              .card
+                a href="https://www.cathaypacific.com/cx/en_HK.html" target="_blank"
+                  img.img-fluid src="https://whub.io/assets/startup-summit/logos/cathay-pacific.png" alt="Cathay Pacific" width="200px"
+      .row.no-gutters.text-center
+        hr[style="width:80%"]
+        .col-xs-12.col-md-6.offset-md-3
+          .h3.text-center Supporting Organizations
+          .col-12.supporting-cards
+            .card-group.align-items-center
+              .card
+                a href="https://jumpstartmag.com/" target="_blank"
+                  img.card-img-top.py-1.px-1 src="https://whub.io/assets/startup-summit/logos/jumpstart.png" alt="Jumpstart"
+              .card
+                a href="https://www.metta.co/#home" target="_blank"
+                  img.card-img-top.py-1.px-2 src="https://whub.io/assets/startup-summit/logos/metta.png" alt="Metta"
+              .card
+                a href="https://campfire.work/" target="_blank"
+                  img.card-img-top.py-1.px-2 src="https://whub.io/assets/startup-summit/logos/campfire.png" alt="Campfire Creative"
+              .card
+                a href="https://brinc.io/" target="_blank"
+                  img.card-img-top.py-1.px-1 src="https://whub.io/assets/startup-summit/logos/brinc.png" alt="Brinc"
+            .card-group.align-items-center
+              .card
+                a href="https://ftahk.org/" target="_blank"
+                  img.card-img-top.py-1.px-1 src="https://whub.io/assets/startup-summit/logos/ftahk.png" alt="FinTech Assocation Hong Kong"
+              .card
+                a href="https://www.hkstp.org/en" target="_blank"
+                  img.card-img-top.py-1.px-1 src="https://whub-assets.s3.amazonaws.com/uploads/f71/e6d/d8a/27e/b8b/f4a/1e8/9b3/39b/80f/small_ecb73c28680088e011ab4d0b4ee9581e.png" alt="HKSTP"
+              .card
+                a href="https://www.techstars.com/" target="_blank"
+                  img.card-img-top.py-1.px-1 src="https://whub-assets.s3.amazonaws.com/uploads/b9d/ca0/ec6/eb7/cf9/b80/844/f23/2aa/d2c/small_bf2f2e0e4ad4eb16610c3b6445a236e7.png" alt="TechStars"
+              .card
+                a href="https://www.accupass.com/" target="_blank"
+                  img.card-img-top.py-1.px-1 src="https://whub-assets.s3.amazonaws.com/uploads/244/541/3ba/cf8/2c9/323/875/eb3/310/e04/small_c7f0a6f25c69e0cc2c7f8f5d17bf440f.png" alt="Accupass"
+              .card
+                a href="https://aiesec.org/" target="_blank"
+                  img.card-img-top.py-1.px-1 src="https://whub-assets.s3.amazonaws.com/uploads/a88/954/3fb/6fa/ca2/728/fe5/927/180/347/small_4f99f6f923863b421a42a77107524632.png" alt="AIESEC"
+              .card
+                a href="https://hongkong.tie.org/" target="_blank"
+                  img.card-img-top.py-1.px-1 src="https://whub-assets.s3.amazonaws.com/uploads/ca4/100/87d/8d7/6da/4db/e2d/b77/0a1/726/small_06adc8bff882ac65ceae9bef8fd342a2.png" alt="TiE Group"
+
+      .row.no-gutters.text-center
+        .col-12.py-4
+          a name="partners"
+          .h1.text-bold Exhibitors
+          p.text-center
+            | The event would not have been possible without the support of these exhibitors.
+            br
+            | Interested in exhibiting?&nbsp;
+            a.text-bold.rounded-0 href="mailto:diane@whub.io?subject=[SIS] Sponsorship" target="_blank" Email us
+          hr[style="width:80%"]
+
+      .row.no-gutters
+        .col-12
+          #map
+            iframe width="100%" height="350" scrolling="no" frameborder="0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAibTn6EJIjozFBpfzE1zlRwNIPtFDjX8E&q=Hong+Kong+Convention+and+Exhibition+Centre" allowfullscreen
+            .map-overlay Click for interacting with map
+
+      .row.no-gutters.text-white.bg-dark.extra-dark
+        a name="contact"
+        .col-xs-10.col-md-10.offset-md-1.py-4
+          .row.no-gutters
+            .col-sm-12.col-md-6
+              .h1 Interested in joining as Sponsor, Speaker or Exhibitor?
+            .col-sm-12.col-md-6
+              form#subscribe_to_sis[novalidate="novalidate" action="#{subscribe_user_to_sis_mailing_list_path}" accept-charset="UTF-8" method="post"]
+                .form-row
+                  .alert.alert-info.d-none Details Sent
+                .form-row
+                  .col
+                    label[for="name"]
+                      | Name*
+                    input#name.form-control[name="name" type="text"]
+                  .col
+                    label[for="email"]
+                      | Email*
+                    input#email.form-control[name="email" type="email"]
+                .form-row
+                  .col
+                    label[for="options"] Interest*
+                    select#options.form-control[name="option"]
+                      option[value="speaker" selected="selected"] Speaker
+                      option[value="exhibitor"] Exhibitor
+                      option[value="sponsor"] Sponsor
+                      option[value="other"] Other
+                .form-row
+                  .col
+                    label[for="message"] Message*
+                    textarea#message.form-control[name="message"]
+                .form-group.text-center.mt-2
+                  button.btn.btn-primary.text-bold.btn-block.rounded-0.text-uppercase[type="submit"] Send
+
+    footer.border-top.border-secondary
+      .container
+        .row.pt-3
+          .col-sm.text-center
+            p.mb-0
+              |Passionately crafted with&nbsp;
+              span.text-red
+                i.fa.fa-heart.fa-fw
+              | &nbsp;by&nbsp;
+              a href="https://whub.io" target="_blank" WHub
+            p.text-light-blue
+              strong Copyright &copy; 2018 WHub.io All rights reserved.
+
+
+    script src="//cdn.jsdelivr.net/jquery/1.11.1/jquery.min.js"
+    script src="//cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+
+    javascript:
+      jQuery(document).ready(function($) {
+        var $map = $('#map');
+        var speakers = [
+          {
+            url: "https://whub-assets.s3.amazonaws.com/uploads/85b/d07/573/6f1/7ac/4db/2ae/abd/666/b8c/small_d41d8cd98f00b204e9800998ecf8427e.jpg",
+            name: "Alex Kong",
+            title :"Founder & Chairman",
+            company: "TNG Wallet",
+            company_link: "https://www.tngwallet.hk/en/home"
+          }, {
+            url: "https://whub-assets.s3.amazonaws.com/uploads/ecd/c6a/621/a5c/7bb/40c/4f8/9ec/fe8/d2a/small_d41d8cd98f00b204e9800998ecf8427e.jpg",
+            name: "Anne O'Dea",
+            title :"Founder",
+            company_name: "Inspirefest",
+            company_link: "https://inspirefest.com/"
+          }, {
+            url: "https://whub-assets.s3.amazonaws.com/uploads/6d0/8af/89c/23f/4bd/acf/862/540/0ab/620/small_d41d8cd98f00b204e9800998ecf8427e.jpg",
+            name: "Richard Zeng",
+            title :"Co-Founder",
+            company_name: "Mojia",
+            company_link: ""
+          }, {
+            url: "https://whub-assets.s3.amazonaws.com/uploads/1f1/b1d/9ab/2b5/944/49e/8a7/c53/54f/364/small_d41d8cd98f00b204e9800998ecf8427e.jpg",
+            name: "Tom Dawkins",
+            title :"Co-Founder & CEO",
+            company_name: "StartSomeGood.com",
+            company_link: "http://startsomegood.com/"
+          }, {
+            url: a"https://whub-assets.s3.amazonaws.com/uploads/5b0/bf7/42e/c6f/687/58d/010/222/23b/44f/small_d41d8cd98f00b204e9800998ecf8427e.jpg",
+            name: "Olu Oyinsan",
+            title :"Partner",
+            company_name: "Oui Capital",
+            company_link: "http://ouicapital.vc/"
+          }
+        };
+
+
+
+        $('#subscribe_to_sis').on('submit', function(e) {
+          var $form = $(this);
+          e.preventDefault();
+          $.ajax({
+            url: $form.attr('action'),
+            type: $form.attr('method'),
+            data: $form.serialize()
+          }).then(function(response) {
+            $form.find('.alert').removeClass('d-none');
+          });
+        });
+
+        $map.find('.map-overlay').on('click',function(){
+          $map.find('.map-overlay').css('display', 'none');
+        });
+        $map.mouseleave(function(){
+          $map.find('.map-overlay').css('display','flex');
+        });
+
+        //Sticky
+        $(window).scroll(function() {
+          if ($(window).scrollTop() > 0) {
+            $('.site-navbar').addClass('sticky');
+          } else {
+            $('.site-navbar').removeClass('sticky');
+          };
+        });
+        $(document.body).on('click', 'a.pillars-nav', function(e) {
+          e.preventDefault();
+        })
+        $(document.body).on('mouseenter', 'a.pillars-nav', function(e) {
+
+          e.preventDefault();
+          var $siblings = $(this).parent('li').siblings(),
+            $activate = $(this),
+            $target = $($activate.attr('data-target'));
+          if ($activate.hasClass('active')) {
+            return;
+          } else {
+            $siblings.find('a').removeClass('active');
+          }
+          $activate.addClass('active');
+          $target.siblings().removeClass('active show');
+          $target.addClass('active show');
+        });
+      });
